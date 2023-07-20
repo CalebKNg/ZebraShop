@@ -11,7 +11,7 @@ import { Typography, Link } from "@mui/material";
 import { CLIENT_ID } from "./configs";
 
 function App() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // load whenever checking to prevent jumping to login
   const [loggedIn, setLoggedin] = useState(false);
   //check if logged in
   useEffect(() => {
@@ -32,7 +32,7 @@ function App() {
 
         const command = new InitiateAuthCommand(input);
         const res = await client.send(command);
-
+        //if return is good
         if (res.$metadata.httpStatusCode === 200) {
           localStorage.setItem(
             "access_token",
@@ -40,15 +40,12 @@ function App() {
           );
           setLoggedin(true);
           setLoading(false);
-          console.log(loggedIn);
 
           console.log(res, 1);
         } else {
           console.log("Not logged in", res);
           setLoggedin(false);
           setLoading(false);
-          console.log(res, 2);
-          console.log(loggedIn);
         }
       } catch (err) {
         console.log(err);
@@ -57,6 +54,7 @@ function App() {
     updateLogged();
   }, []);
 
+  //hide protected routes until logged in
   const getRoutes = (allRoutes) =>
     allRoutes.map((route) => {
       if (route.route) {

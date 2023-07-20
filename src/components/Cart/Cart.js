@@ -36,7 +36,7 @@ function Cart() {
       }}
     >
       <Typography variant="h6">Items in your cart</Typography>
-      <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>//generate list 
+      <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
         {steve ? (
           <ListItem>
             <ListItemAvatar>

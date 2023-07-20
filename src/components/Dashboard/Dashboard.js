@@ -26,6 +26,7 @@ function Dashboard() {
     window.location.href = "/login";
   };
 
+  //cart tracking
   const handleSteve = () => {
     if (steves === true) {
       setSteves(false);
@@ -63,9 +64,11 @@ function Dashboard() {
         <Typography variant="h4">Zebras for Sale</Typography>
         <div style={{ display: "flex", "flex-direction": "column" }}>
           <Button
-            onClick={()=> navigate("/cart", {
-              state: { steve: steves, dave: daves, fitz: fitzgeralds },
-            })}
+            onClick={() =>
+              navigate("/cart", {
+                state: { steve: steves, dave: daves, fitz: fitzgeralds },
+              })
+            }
           >
             Checkout
           </Button>

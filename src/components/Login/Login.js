@@ -38,8 +38,9 @@ function Login() {
 
         const command = new InitiateAuthCommand(input);
         const res = await client.send(command);
-
+        //if okay
         if (res.$metadata.httpStatusCode === 200) {
+          //set tokens, save to local storage
           localStorage.setItem("username", email);
           localStorage.setItem(
             "access_token",
