@@ -7,6 +7,8 @@ import {
   CognitoIdentityProviderClient,
   InitiateAuthCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
+import { Typography, Link } from "@mui/material";
+import { CLIENT_ID } from "./configs";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -15,12 +17,13 @@ function App() {
   useEffect(() => {
     async function updateLogged() {
       try {
+        //obtain new refresh token
         const refresh_token = localStorage.getItem("refresh_token");
         const client = new CognitoIdentityProviderClient({
           region: "us-east-2",
         });
         const input = {
-          ClientId: "3j3tnju1j2joo513s2ghrrlg17", // required
+          ClientId: CLIENT_ID, // required
           AuthFlow: "REFRESH_TOKEN_AUTH",
           AuthParameters: {
             REFRESH_TOKEN: refresh_token,
@@ -84,11 +87,14 @@ function App() {
 
   return (
     <div className="wrapper">
-      <h1>Application</h1>
+      <Link href="/dashboard" underline="none" variant="h5">
+        Zebra.net
+      </Link>
       <BrowserRouter>
-        <Routes>{getRoutes(routes)}
-        <Route path="*" element={<Navigate to="/login" />} /></Routes>
-        
+        <Routes>
+          {getRoutes(routes)}
+          <Route path="*" element={<Navigate to="/login" />} />
+        </Routes>
       </BrowserRouter>
     </div>
   );

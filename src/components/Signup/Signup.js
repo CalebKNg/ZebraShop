@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, onKeyDown } from "react";
 import {
   CognitoIdentityProviderClient,
   SignUpCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
 import { useNavigate } from "react-router-dom";
+import { Typography } from "@mui/material";
+import { TextField } from "@mui/material";
+import { Button } from "@mui/material";
+import "./Signup.css";
+import { Link } from "@mui/material";
+import { Card } from "@mui/material";
+import { CLIENT_ID } from "../../configs";
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -17,7 +24,7 @@ function Signup() {
 
       //set up input
       const input = {
-        ClientId: "3j3tnju1j2joo513s2ghrrlg17", // required
+        ClientId: CLIENT_ID, // required
         Username: email, // required
         Password: password, // required
       };
@@ -42,28 +49,46 @@ function Signup() {
 
   return (
     <div className="signup-wrapper">
-      <h1>Sign Up</h1>
-      <button onClick={handleSubmission}>submit</button>
-      {/* <button onClick={() => navigate("/Confirm", { state: { email: email } })}>
-        to confirm
-      </button> */}
-      <form onSubmit={handleSubmission}>
-        <label>
-          <p>Username</p>
-          <input type="text" onChange={(e) => setEmail(e.target.value)} />
-        </label>
-        <label>
-          <p>Password</p>
-          <input
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <div>
-          <button type="submit">Submit</button>
-        </div>
-      </form>
-      {message && <h1>{message}</h1>}
+      <Typography variant="h3">Sign Up</Typography>
+      <Typography variant="h4">Register an Account</Typography>
+      <div style={{ height: 30 }} />
+      <Typography variant="h8" style={{ align: "flex-start" }}>
+        Email
+      </Typography>
+      <TextField
+        id="outlined-basic"
+        label="Email"
+        variant="outlined"
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <div style={{ height: 10 }} />
+      <Typography variant="h8">Password</Typography>
+      <TextField
+        id="outlined-basic"
+        label="Password"
+        type="password"
+        variant="outlined"
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <div style={{ height: 30 }} />
+      <div>
+        <Button variant="contained" onClick={handleSubmission}>
+          Submit
+        </Button>
+      </div>
+      <div style={{ height: 30 }} />
+      <div>
+        <Typography variant="h8">Back to </Typography>
+        <Link href="/login" underline="none">
+          {"Sign In"}
+        </Link>
+      </div>
+      <div style={{ height: 30 }} />
+      {message && (
+        <Typography variant="h8" style={{ borderRadius: "20px" }}>
+          {message}
+        </Typography>
+      )}
     </div>
   );
 }

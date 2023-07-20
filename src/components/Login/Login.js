@@ -4,7 +4,13 @@ import {
   CognitoIdentityProviderClient,
   InitiateAuthCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
+import { Typography } from "@mui/material";
+import { TextField } from "@mui/material";
+import { Button } from "@mui/material";
+import { Link } from "@mui/material";
+import { Card } from "@mui/material";
 import "./Login.css";
+import { CLIENT_ID } from "../../configs";
 
 function Login() {
   const [email, setEmail] = useState();
@@ -22,7 +28,7 @@ function Login() {
 
         //set up input
         const input = {
-          ClientId: "3j3tnju1j2joo513s2ghrrlg17", // required
+          ClientId: CLIENT_ID, // required
           AuthFlow: "USER_PASSWORD_AUTH",
           AuthParameters: {
             USERNAME: email,
@@ -63,31 +69,48 @@ function Login() {
 
   return (
     <div className="login-wrapper">
-      <h1>Please Log In</h1>
-      <button onClick={handleSubmission}>submit</button>
-      <form>
-        <label>
-          <p>Username</p>
-          <input type="text" onChange={(e) => setEmail(e.target.value)} />
-        </label>
-        <label>
-          <p>Password</p>
-          <input
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <div>
-          <button type="submit">Submit</button>
-        </div>
-      </form>
-      {message && <h1>{message}</h1>}
+      <Typography variant="h3">Welcome</Typography>
+      <Typography variant="h4">Sign in to Continue</Typography>
+      <div style={{ height: 30 }} />
+      <Typography variant="h8" style={{ align: "flex-start" }}>
+        Email
+      </Typography>
+      <TextField
+        id="outlined-basic"
+        label="Email"
+        variant="outlined"
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <div style={{ height: 10 }} />
+      <Typography variant="h8">Password</Typography>
+      <TextField
+        id="outlined-basic"
+        label="Password"
+        type="password"
+        variant="outlined"
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <div style={{ height: 30 }} />
+      <div>
+        <Button variant="contained" onClick={handleSubmission}>
+          Submit
+        </Button>
+      </div>
+      <div style={{ height: 30 }} />
+      <div>
+        <Typography variant="h8">Don't have an account? </Typography>
+        <Link href="/signup" underline="none">
+          {"Sign Up!"}
+        </Link>
+      </div>
+      <div style={{ height: 30 }} />
+      {message && (
+        <Typography variant="h8" style={{ borderRadius: "20px" }}>
+          {message}
+        </Typography>
+      )}
     </div>
   );
 }
-
-Login.propTypes = {
-  setToken: PropTypes.func.isRequired,
-};
 
 export default Login;
